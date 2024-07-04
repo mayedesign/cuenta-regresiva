@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta Regresiva</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: transparent;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #DAAC4A;
+        }
+        .countdown div {
+            text-align: center;
+            margin: 0 5px;
+        }
+        .countdown div span {
+            display: block;
+            border: 2px solid #DAAC4A;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 2em;
+        }
+        .countdown div label {
+            display: block;
+            margin-top: 5px;
+            color: black;
+            font-size: 1em;
+        }
+        @media (max-width: 600px) {
+            .countdown div span {
+                font-size: 1.5em;
+                padding: 8px;
+            }
+            .countdown div label {
+                font-size: 0.8em;
+            }
+        }
+        @media (max-width: 400px) {
+            .countdown div span {
+                font-size: 1.2em;
+                padding: 6px;
+            }
+            .countdown div label {
+                font-size: 0.7em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown" id="countdown">
+        <div>
+            <span id="days">0</span>
+            <label>Días</label>
+        </div>
+        <div>
+            <span id="hours">0</span>
+            <label>Horas</label>
+        </div>
+        <div>
+            <span id="minutes">0</span>
+            <label>Minutos</label>
+        </div>
+        <div>
+            <span id="seconds">0</span>
+            <label>Segundos</label>
+        </div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const countdown = document.getElementById('countdown');
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+
+            const targetDate = new Date('2024-07-27T13:00:00');
+            const now = new Date();
+            const timeDifference = targetDate - now;
+
+            if (timeDifference > 0) {
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                daysEl.textContent = days;
+                hoursEl.textContent = hours < 10 ? '0' + hours : hours;
+                minutesEl.textContent = minutes < 10 ? '0' + minutes : minutes;
+                secondsEl.textContent = seconds < 10 ? '0' + seconds : seconds;
+            } else {
+                countdown.textContent = "¡El evento ha comenzado!";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
